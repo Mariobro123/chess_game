@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 int main()
 {
 
@@ -15,13 +14,15 @@ int main()
     sf::Vector2i pozycjaMyszy;
 //    sf::Vector2f pozycjaMyszyNaScenie;
 
-    sf::Texture tekstura, cos;
+    sf::Texture tekstura, zaznaPola;
     tekstura.loadFromFile( "images/szachownica.jpg" );
-    cos.loadFromFile("images/cos.png");
+    zaznaPola.loadFromFile("images/zaznaPola.png");
 
-    sf::Sprite szachownica, gunwo;
+    sf::Sprite szachownica, zaznaczeniePola;
     szachownica.setTexture(tekstura);
-    gunwo.setTexture(cos);
+    zaznaczeniePola.setTexture(zaznaPola);
+    bool czyPoleZaznaczone = false;
+    int indeksPionka;
 
     while(okno.isOpen())
     {
@@ -37,11 +38,17 @@ int main()
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             pozycjaMyszy = sf::Mouse::getPosition( okno );
-//            pozycjaMyszyNaScenie = okno.convertCoords( pozycjaMyszy )
+            pozycjaMyszy.x = (pozycjaMyszy.x / 100) * 100;
+            pozycjaMyszy.y = (pozycjaMyszy.y / 100) * 100;
+            czyPoleZaznaczone = true;
 
         }
-//        okno.draw(gunwo);
-            gunwo.setPosition(pozycjaMyszy.x, pozycjaMyszy.y);
+        if (czyPoleZaznaczone == true)
+        {
+            okno.draw(zaznaczeniePola);
+        }
+
+        zaznaczeniePola.setPosition(pozycjaMyszy.x, pozycjaMyszy.y);
 
         okno.display();
 
